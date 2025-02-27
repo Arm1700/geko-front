@@ -1,4 +1,6 @@
-export const BASE_URL = "https://gekoeducation.com";
+// export const BASE_URL = "https://gekoeducation.com";
+export const BASE_URL = "http://127.0.0.1:8000";
+
 export const findById = (array, id) => {
     if (!Array.isArray(array)) return null;
     const parsedId = parseInt(id, 10);
@@ -10,7 +12,7 @@ export const filterByProperty = (array, property, value) => {
     return array.filter(item => item[property] === value);
 };
 
-export const getImageUrl = (image, baseUrl = 'https://gekoeducation.com') => {
+export const getImageUrl = (image, baseUrl = 'http://127.0.0.1:8000') => {
     if (image && typeof image === 'string') {
         return image.startsWith('https') ? image : `${baseUrl}${image}`;
     }
