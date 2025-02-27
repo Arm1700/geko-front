@@ -5,14 +5,14 @@ import Input from "../shared/contact/Input";
 import Button from "../shared/contact/Button";
 import {useTranslation} from "react-i18next";
 import {CountryDropdown} from "react-country-region-selector";
-import {DataContext} from "../context/DataProvider";
 import {MdKeyboardArrowDown} from "react-icons/md";
 import Notification from "../shared/contact/Notification";
+import { useSelector } from 'react-redux';
 
 export default function  RegisterForm({check = true}) {
     const {t} = useTranslation();
     const {register, handleSubmit, reset, setValue, formState: {errors}} = useForm();
-    const {categories} = useContext(DataContext);
+    const categories = useSelector(state => state.data.categories);
 
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedCountry, setSelectedCountry] = useState("");

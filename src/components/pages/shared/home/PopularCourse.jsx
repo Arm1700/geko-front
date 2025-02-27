@@ -1,7 +1,7 @@
 import {FaExternalLinkAlt} from 'react-icons/fa'
 import {useNavigate} from 'react-router-dom'
-import {useContext, useState} from 'react'
-import {DataContext} from "../../context/DataProvider";
+import {useState} from 'react'
+import { getImageUrl } from '../../../../utils/utils';
 
 export default function PopularCourse({
                                           gridStyleTF = true,
@@ -12,7 +12,6 @@ export default function PopularCourse({
                                       }) {
     const nav = useNavigate()
     const [isHovered, setIsHovered] = useState(false)
-    const {getImageUrl} = useContext(DataContext);
 
     const handleMouseEnter = () => {
         setIsHovered(true)

@@ -5,10 +5,9 @@ import { MdOutlinePlace, MdMarkEmailRead } from 'react-icons/md';
 import { routesArray } from '../../entities/routesArray';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Map, { Marker } from 'react-map-gl';
-import "maplibre-gl/dist/maplibre-gl.css";
 import socialsArray from '../../entities/socialsArray';
-
+import Map, {Marker} from 'react-map-gl/mapbox';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const Footer = () => {
     const { t } = useTranslation();
@@ -68,8 +67,8 @@ const Footer = () => {
                     <Map
                         {...viewport}
                         onMove={(evt) => setViewport(evt.viewState)}
-                        mapLib={import('maplibre-gl')}
                         mapStyle="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
+                        mapboxAccessToken="pk.eyJ1IjoiYXJtMTcwMCIsImEiOiJjbTduZXB2YWYwMGZrMm1zbHI2a296ZTFuIn0.vzq-9WAEpDnViMdV5jSN1Q"
                     >
                         <Marker
                             longitude={marker.longitude}

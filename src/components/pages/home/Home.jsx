@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import Course from '../shared/home/Course';
 import MainPhoto from './MainPhoto';
@@ -7,14 +7,27 @@ import LessonInfo from '../shared/home/LessonInfo';
 import Event from '../shared/event/Event';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import { DataContext } from "../context/DataProvider";
+import { useSelector, useDispatch } from 'react-redux';
 import RegisterForm from "./RegisterForm";
 import Reviews from '../shared/home/Review';
 import "react-loading-skeleton/dist/skeleton.css";
+import { fetchCourses, fetchEvents, fetchLessonInfo, fetchReviews } from '../../../redux/dataSlice';
 
 export default function Home() {
     const { t } = useTranslation();
-    const { events, courses, lessonInfo, loading } = useContext(DataContext);
+    const events = useSelector(state => state.data.events);
+    const courses = useSelector(state => state.data.courses);
+    const lessonInfo = useSelector(state => state.data.lessonInfo);
+    const loading = useSelector(state => state.data.loading);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchCourses());
+        dispatch(fetchEvents());
+        dispatch(fetchLessonInfo());
+        dispatch(fetchReviews());
+    }, [dispatch]);
+
     const nav = useNavigate();
     const handleCategoryClick = () => {
         nav(`/course-category`);
@@ -35,8 +48,6 @@ export default function Home() {
                     <RegisterForm />
                 </div>
             </div>
-
-
             <Course />
             <div className="flex content-center justify-center gap-20 py-1">
                 <div className='popularDiv mx-[auto] px-5'>

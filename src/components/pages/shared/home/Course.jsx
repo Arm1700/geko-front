@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useContext } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, A11y, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -6,7 +6,10 @@ import 'swiper/css/pagination';
 import Skeleton from "react-loading-skeleton";
 
 import { useNavigate } from "react-router-dom";
-import { DataContext } from "../../context/DataProvider";
+import { useSelector, useDispatch } from 'react-redux';
+import { getImageUrl } from '../../../../utils/utils';
+import { fetchCategories } from '../../../../redux/dataSlice';
+import { renderBullet } from '../../../../utils/utils';
 
 const CourseSlider = () => {
     const nav = useNavigate();
@@ -41,7 +44,13 @@ const CourseSlider = () => {
         };
     }, []);
 
-    const { categories, getImageUrl, loading, renderBullet } = useContext(DataContext);
+    const categories = useSelector(state => state.data.categories);
+    const loading = useSelector(state => state.data.loading);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchCategories());
+    }, [dispatch]);
 
     const shouldLoop = categories.length > slidesToShow;
     return (

@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { TbClockHour9 } from 'react-icons/tb'
 import { IoLanguage } from 'react-icons/io5'
@@ -10,12 +10,15 @@ import { A11y, Autoplay, Pagination } from "swiper/modules";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 import PopularCourse from "../../shared/home/PopularCourse";
 import { useTranslation } from "react-i18next";
-import { DataContext } from "../../context/DataProvider";
+import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { BASE_URL } from "../../context/DataProvider";
+import { BASE_URL } from '../../../../utils/utils';
+import { renderBullet } from '../../../../utils/utils';
+import { fetchCourses } from '../../../../redux/dataSlice';
 
 export default function CoursePage() {
     const nav = useNavigate();
@@ -24,9 +27,15 @@ export default function CoursePage() {
     const [slidesToShow, setSlidesToShow] = useState(3)
     const [spaceBetween, setSpaceBetween] = useState(30)
 
-    const { getCoursesById, courses, renderBullet } = useContext(DataContext);
+    const courses = useSelector(state => state.data.courses);
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(fetchCourses());
+    }, [dispatch]);
 
-    let pickedCourse = getCoursesById(coursesID)
+    let pickedCourse = courses.length > 0 ? courses.find(course => Number(course.id) === Number(coursesID)) : null;
+
     useLayoutEffect(() => {
         function updateSlidesToShow() {
             const screenWidth = window.innerWidth

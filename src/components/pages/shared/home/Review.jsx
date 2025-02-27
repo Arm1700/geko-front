@@ -1,16 +1,17 @@
-import React, {useState, useLayoutEffect, useRef, useContext} from 'react';
+import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import {DataContext} from "../../context/DataProvider";
-import {BASE_URL} from "../../context/DataProvider";
+import { useSelector, useDispatch } from 'react-redux';
+import { BASE_URL } from '../../../../utils/utils';
+import { fetchReviews } from '../../../../redux/dataSlice';
 
 export default function Review() {
     const [slidesToShow, setSlidesToShow] = useState(3);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const {reviews} = useContext(DataContext);
-
+    const reviews = useSelector(state => state.data.reviews);
+    console.log(reviews);
 
     const thumbnailSliderRef = useRef(null);
     const contentSliderRef = useRef(null);

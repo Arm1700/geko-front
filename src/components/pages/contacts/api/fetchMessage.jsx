@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {BASE_URL} from "../../context/DataProvider";
+import { BASE_URL } from '../../../../utils/utils';
 // Endpoint URL
 const api = `${BASE_URL}/api/contact/`;
 

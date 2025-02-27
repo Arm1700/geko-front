@@ -1,14 +1,20 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Event from '../shared/event/Event';
 import { useTranslation } from 'react-i18next';
-import { DataContext } from "../context/DataProvider";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchEvents } from '../../../redux/dataSlice';
 
 export default function Events() {
     const { t } = useTranslation();
-    const { events } = useContext(DataContext);
     const { tab } = useParams(); // Get the active tab from the URL
     const navigate = useNavigate(); // To update the URL when changing the tab
+    const events = useSelector(state => state.data.events);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchEvents());
+    }, [dispatch]);
 
     const tabs = [
         { title: 'happening', id: 1 },
@@ -45,13 +51,12 @@ export default function Events() {
                         <button
                             key={tabItem.id}
                             disabled={isDisabled} // Отключение кнопки, если пусто
-                            className={`${
-                                activeTab === tabItem.title
+                            className={`${activeTab === tabItem.title
                                     ? 'border-b-2 border-primary text-primary'
                                     : isDisabled
                                         ? 'text-gray-300 cursor-not-allowed' // Стили для неактивных вкладок
                                         : 'text-gray-500'
-                            } focus:outline-none font-roboto-slab font-bold text-xl mx-10 pb-2 capitalize`}
+                                } focus:outline-none font-roboto-slab font-bold text-xl mx-10 pb-2 capitalize`}
                             onClick={() => !isDisabled && setActiveTab(tabItem.title)} // Избегаем переключения на отключенную вкладку
                         >
                             {t(tabItem.title)}

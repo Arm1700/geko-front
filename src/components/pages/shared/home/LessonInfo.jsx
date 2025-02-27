@@ -1,8 +1,6 @@
-import {useContext} from "react";
-import {DataContext} from "../../context/DataProvider";
+import { getImageUrl } from '../../../../utils/utils';
 
 export default function LessonInfo({image, title}) {
-    const {getImageUrl} = useContext(DataContext);
 
     return (
         <article
