@@ -208,7 +208,9 @@ export default function CoursePage() {
                                 }}
                                 speed={500}
                                 autoplay={{
-                                    delay: 1500, // Задержка между переключениями (в миллисекундах)
+                                    delay: 1500,
+                                    pauseOnMouseEnter: true,
+                                    disableOnInteraction: false,
                                 }}
                             >
                                 {courses.slice(0, 6).map(({ image, id, translation }) => (

@@ -46,14 +46,14 @@ const CourseSlider = () => {
     const shouldLoop = categories.length > slidesToShow;
     return (
         <div className="popularDiv max-w-[1280px] mx-auto max:px-0 py-16 px-[5px]">
-             {loading ? (
-               <div className={`grid grid-cols-${slidesToShow} justify-between gap-5`}>
-                   {Array.from({ length: slidesToShow }).map((_, index) => (
-                       <Skeleton key={index} className="w-full mb-[40px] rounded-lg"
-                       style={{ aspectRatio: "1 / 1" }} /> // Настройка Skeleton
-                   ))}
-               </div>
-           ) : (
+            {loading ? (
+                <div className={`grid grid-cols-${slidesToShow} justify-between gap-5`}>
+                    {Array.from({ length: slidesToShow }).map((_, index) => (
+                        <Skeleton key={index} className="w-full mb-[40px] rounded-lg"
+                            style={{ aspectRatio: "1 / 1" }} /> // Настройка Skeleton
+                    ))}
+                </div>
+            ) : (
                 <Swiper
                     modules={[Pagination, A11y, Autoplay]}
                     spaceBetween={spaceBetween}
@@ -69,6 +69,8 @@ const CourseSlider = () => {
                     speed={500}
                     autoplay={{
                         delay: 1500,
+                        pauseOnMouseEnter: true,
+                        disableOnInteraction: false,
                     }}
                 >
                     {categories.map(({ image, id, translation }) => (

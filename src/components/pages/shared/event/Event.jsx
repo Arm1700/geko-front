@@ -73,6 +73,8 @@ export default function Event({pickedEvent}) {
                     speed={500}
                     autoplay={{
                         delay: 1500,
+                        pauseOnMouseEnter: true,
+                        disableOnInteraction: false,
                     }}
 
                 >

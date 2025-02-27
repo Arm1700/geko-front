@@ -9,6 +9,9 @@ export default defineConfig(() => ({
     include: /src\/.*\.(js|jsx)$/,
     exclude: [],
   },
+  server: {
+    port: 3000,
+  },
   optimizeDeps: {
     esbuildOptions: {
       plugins: [

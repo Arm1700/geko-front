@@ -36,6 +36,8 @@ export default function Review() {
     const thumbnailSettings = {
         autoplay: true,
         autoplaySpeed: 2000,
+        pauseOnMouseEnter: true,
+        disableOnInteraction: false,
         infinite: true,
         centerMode: true,
         centerPadding: "20px",  // Padding to show slides on the left and right
@@ -48,6 +50,8 @@ export default function Review() {
     const contentSettings = {
         autoplay: true,
         autoplaySpeed: 2000,
+        pauseOnMouseEnter: true,
+        disableOnInteraction: false,
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,

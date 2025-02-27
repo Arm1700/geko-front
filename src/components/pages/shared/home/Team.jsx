@@ -37,9 +37,11 @@ export default function Team() {
     const thumbnailSettings = {
         autoplay: true,
         autoplaySpeed: 2000,
+        pauseOnMouseEnter: true,
+        disableOnInteraction: false,
         infinite: true,
         centerMode: true,
-        centerPadding: "20px",  // Padding to show slides on the left and right
+        centerPadding: "20px",
         slidesToShow: slidesToShow,
         slidesToScroll: 1,
         speed: 500,
@@ -49,6 +51,8 @@ export default function Team() {
     const contentSettings = {
         autoplay: true,
         autoplaySpeed: 2000,
+        pauseOnMouseEnter: true,
+        disableOnInteraction: false,
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
