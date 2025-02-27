@@ -11,6 +11,7 @@ const Input = React.forwardRef(({type = 'text', placeholder = '', error, ...rest
                 }`}
                 ref={ref} // Pass the ref provided by react-hook-form
                 {...rest}
+                autoComplete={type === 'email' ? 'email' : 'on'}
             />
             {error && <p className="text-red-500 text-xs italic">This field is required</p>}
         </div>

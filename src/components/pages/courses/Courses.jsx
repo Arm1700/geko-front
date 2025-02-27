@@ -6,7 +6,8 @@ import CoursesMenu from "./CoursesMenu";
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategories, fetchCourses } from '../../../redux/dataSlice';
-import Skeleton from 'react-loading-skeleton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThLarge, faListUl } from '@fortawesome/free-solid-svg-icons';
 
 export default function Courses() {
     const { t } = useTranslation();
@@ -124,10 +125,17 @@ export default function Courses() {
                     </button>
                     <div className="mid:w-[80%] w-full">
                         <div className="flex gap-3 items-center">
-                            <i className={`fa fa-th-large text-xl hover:text-primary cursor-pointer ${gridStyleTF ? 'text-primary' : 'text-color66'}`}
-                                onClick={() => setGridStyle(true)}></i>
-                            <i className={`fa fa-list-ul text-lg hover:text-primary cursor-pointer ${!gridStyleTF ? 'text-primary' : 'text-color66'}`}
-                                onClick={() => setGridStyle(false)}></i>
+                            <FontAwesomeIcon
+                                icon={faThLarge}
+                                className={`text-xl hover:text-primary cursor-pointer ${gridStyleTF ? 'text-primary' : 'text-color66'}`}
+                                onClick={() => setGridStyle(true)}
+                            />
+                            <FontAwesomeIcon
+                                icon={faListUl}
+                                className={`text-lg hover:text-primary cursor-pointer ${!gridStyleTF ? 'text-primary' : 'text-color66'}`}
+                                onClick={() => setGridStyle(false)}
+                            />
+                            
                             <p className="text-color66 text-custom-15">
                                 {t('Showing', {
                                     start: (currentPage - 1) * coursesPerPage + 1,

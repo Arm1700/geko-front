@@ -82,6 +82,7 @@ export default function  RegisterForm({check = true}) {
                             }}
                             className="capitalize w-full py-3 pl-3 border max-h-48 overflow-y-auto  border-gray-300 rounded-lg text-primaryDark"
                             defaultOptionLabel={selectedCountry || t("country")}
+                            autoComplete="country"
                         />
                         {errors.country && <p className="text-red-500 text-sm mt-1">{t(errors.country.message)}</p>}
                     </div>
