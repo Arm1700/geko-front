@@ -10,21 +10,20 @@ export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
 
   return (
-      <div className='flex bg-white rounded w-min'>
-        {Object.keys(lngs).map((lng) => (
-          <button
-            key={lng}
-            type="submit"
-            onClick={() => i18n.changeLanguage(lng)}
-            title={lngs[lng].nativeName}
-            className={`w-[35px] m-[3px] p-1 ${
-              i18n.resolvedLanguage === lng ? 'bg-secondary rounded ' : ''
+    <div className='flex bg-white rounded w-min'>
+      {Object.keys(lngs).map((lng) => (
+        <button
+          key={lng}
+          type="submit"
+          onClick={() => i18n.changeLanguage(lng)}
+          title={lngs[lng].nativeName}
+          className={`w-[35px] h-[26px] m-[3px] p-1 ${i18n.resolvedLanguage === lng ? 'bg-secondary rounded ' : ''
             }`}
-          >
-            <img alt={lngs[lng].nativeName} src={lngs[lng].flag}/>
-          </button>
-        ))}
-        {/* <button
+        >
+          <img alt={lngs[lng].nativeName} src={lngs[lng].flag} />
+        </button>
+      ))}
+      {/* <button
             key={'am'}
             type="submit"
             onClick={() => i18n.changeLanguage('am')}
@@ -35,6 +34,6 @@ export default function LanguageSwitcher() {
         >
           <img alt={'Armenian'} src={lngs['am'].flag}/>
         </button> */}
-      </div>
+    </div>
   );
 }
