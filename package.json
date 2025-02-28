@@ -24,6 +24,7 @@
     "i18next-http-backend": "^3.0.2",
     "mapbox-gl": "^3.10.0",
     "maplibre-gl": "^5.1.1",
+    "next-dynamic-no-ssr": "^0.1.5",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-country-region-selector": "^4.0.2",

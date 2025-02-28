@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from '../pages/shared/Logo';
 import { FaPhoneAlt } from 'react-icons/fa';
 import { MdOutlinePlace, MdMarkEmailRead } from 'react-icons/md';
@@ -6,8 +6,10 @@ import { routesArray } from '../../entities/routesArray';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import socialsArray from '../../entities/socialsArray';
-import Map, {Marker} from 'react-map-gl/mapbox';
+import { Marker } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
+
+const Map = React.lazy(() => import('react-map-gl/mapbox'), { ssr: false });
 
 const Footer = () => {
     const { t } = useTranslation();
@@ -18,7 +20,6 @@ const Footer = () => {
         zoom: 14,
         width: '100%',
         height: '500px',
-
     });
 
     const marker = {
@@ -26,7 +27,20 @@ const Footer = () => {
         latitude: 40.189854,
     };
 
-    // Log events for debugging purposes (you can replace it with your own log function)
+    const [isMapVisible, setIsMapVisible] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const mapElement = document.getElementById('map-container');
+            if (mapElement && mapElement.getBoundingClientRect().top < window.innerHeight) {
+                setIsMapVisible(true);
+                window.removeEventListener('scroll', handleScroll);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
         <footer className="flex bg-black text-pseudo h-[auto]">
@@ -60,25 +74,24 @@ const Footer = () => {
                         )
                     })}
                 </ul>
-                {/* <div className='column-start-3 row-span-2'>
-                    <FacebookBox/>
-                </div> */}
-                <div className="map-container column-start-3 row-span-2 w-full h-[400px] rounded-md overflow-hidden">
-                    <Map
-                        {...viewport}
-                        onMove={(evt) => setViewport(evt.viewState)}
-                        mapStyle="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
-                        mapboxAccessToken="pk.eyJ1IjoiYXJtMTcwMCIsImEiOiJjbTduZXB2YWYwMGZrMm1zbHI2a296ZTFuIn0.vzq-9WAEpDnViMdV5jSN1Q"
-                    >
-                        <Marker
-                            longitude={marker.longitude}
-                            latitude={marker.latitude}
-                            anchor="bottom"
+                <div id="map-container" className="map-container column-start-3 row-span-2 w-full h-[400px] rounded-md overflow-hidden">
+                    {isMapVisible && (
+                        <Map
+                            {...viewport}
+                            onMove={(evt) => setViewport(evt.viewState)}
+                            mapStyle="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
+                            mapboxAccessToken="pk.eyJ1IjoiYXJtMTcwMCIsImEiOiJjbTduZXB2YWYwMGZrMm1zbHI2a296ZTFuIn0.vzq-9WAEpDnViMdV5jSN1Q"
                         >
-                            <img src="https://cdn-icons-png.freepik.com/256/12662/12662347.png?semt=ais_hybrid"
-                                width={20} alt="" />
-                        </Marker>
-                    </Map>
+                            <Marker
+                                longitude={marker.longitude}
+                                latitude={marker.latitude}
+                                anchor="bottom"
+                            >
+                                <img src="https://cdn-icons-png.freepik.com/256/12662/12662347.png?semt=ais_hybrid"
+                                    width={20} alt="" />
+                            </Marker>
+                        </Map>
+                    )}
                 </div>
                 <ul className='column-start-4 flex gap-3'>
                     {
