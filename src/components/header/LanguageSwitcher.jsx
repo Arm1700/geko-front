@@ -20,20 +20,9 @@ export default function LanguageSwitcher() {
           className={`w-[35px] h-[26px] m-[3px] p-1 ${i18n.resolvedLanguage === lng ? 'bg-secondary rounded ' : ''
             }`}
         >
-          <img alt={lngs[lng].nativeName} src={lngs[lng].flag} />
+          <img alt={lngs[lng].nativeName} src={lngs[lng].flag} className='w-[27px] h-[18px]'/>
         </button>
       ))}
-      {/* <button
-            key={'am'}
-            type="submit"
-            onClick={() => i18n.changeLanguage('am')}
-            title={lngs['am'].nativeName}
-            className={`w-[35px] m-[3px] p-1 ${
-                i18n.resolvedLanguage === 'am' ? 'bg-secondary rounded ' : ''
-            }`}
-        >
-          <img alt={'Armenian'} src={lngs['am'].flag}/>
-        </button> */}
     </div>
   );
 }

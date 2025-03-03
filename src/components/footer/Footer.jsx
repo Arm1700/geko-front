@@ -6,25 +6,13 @@ import { routesArray } from '../../entities/routesArray';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import socialsArray from '../../entities/socialsArray';
-import { Marker } from 'react-map-gl/mapbox';
-import 'mapbox-gl/dist/mapbox-gl.css';
-
-const Map = React.lazy(() => import('react-map-gl/mapbox'), { ssr: false });
 
 const Footer = () => {
     const { t } = useTranslation();
 
-    const [viewport, setViewport] = useState({
-        longitude: 44.521913,
-        latitude: 40.189854,
-        zoom: 14,
-        width: '100%',
-        height: '500px',
-    });
-
     const marker = {
-        longitude: 44.521913,
-        latitude: 40.189854,
+        longitude: 44.522213,
+        latitude: 40.189774,
     };
 
     const [isMapVisible, setIsMapVisible] = useState(false);
@@ -74,23 +62,13 @@ const Footer = () => {
                         )
                     })}
                 </ul>
-                <div id="map-container" className="map-container column-start-3 row-span-2 w-full h-[400px] rounded-md overflow-hidden">
+                <div id="map-container" className="map-container column-start-3 row-span-2 w-full h-auto rounded-md overflow-hidden">
                     {isMapVisible && (
-                        <Map
-                            {...viewport}
-                            onMove={(evt) => setViewport(evt.viewState)}
-                            mapStyle="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
-                            mapboxAccessToken="pk.eyJ1IjoiYXJtMTcwMCIsImEiOiJjbTduZXB2YWYwMGZrMm1zbHI2a296ZTFuIn0.vzq-9WAEpDnViMdV5jSN1Q"
-                        >
-                            <Marker
-                                longitude={marker.longitude}
-                                latitude={marker.latitude}
-                                anchor="bottom"
-                            >
-                                <img src="https://cdn-icons-png.freepik.com/256/12662/12662347.png?semt=ais_hybrid"
-                                    width={20} alt="" />
-                            </Marker>
-                        </Map>
+                        <img
+                            src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s-marker+ff0000(${marker.longitude},${marker.latitude})/${marker.longitude},${marker.latitude},18,0/800x600?access_token=pk.eyJ1IjoiYXJtMTcwMCIsImEiOiJjbTduZXB2YWYwMGZrMm1zbHI2a296ZTFuIn0.vzq-9WAEpDnViMdV5jSN1Q`}
+                            alt="Static Map with Marker"
+                            className="w-full h-full object-cover"
+                        />
                     )}
                 </div>
                 <ul className='column-start-4 flex gap-3'>
