@@ -31,8 +31,8 @@ export default function Menu({ showMenu, toggleMenu }) {
                         key={route.id}
                         to={route.path}
                         className={`relative group px-3 py-2 rounded-md text-sm font-medium ${pathname === route.path || (pathname?.startsWith(route?.path) && route?.path !== '/')
-                                ? 'text-primary'
-                                : 'text-secondary hover:text-primary'
+                            ? 'text-primary'
+                            : 'text-secondary hover:text-primary'
                             }`}
                     >
                         {t(route.name)}

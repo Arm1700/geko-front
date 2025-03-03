@@ -62,7 +62,7 @@ export default function Home() {
                         </button>
                     </div>
 
-                    <div className="popular grid md:grid-cols-4 sm500:grid-cols-2 grid-cols-1">
+                    <div className="popular grid md:grid-cols-4 sm500:grid-cols-2 grid-cols-1 gap-12">
                         {loading ? (
                             Array.from({ length: 4 }).map((_, index) => (
                                 <div key={index} className="p-4">

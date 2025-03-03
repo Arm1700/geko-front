@@ -11,8 +11,6 @@ export default function Event({ pickedEvent }) {
     const nav = useNavigate();
     const { t } = useTranslation();
 
-    console.log(pickedEvent);
-    
     const handleCategoryClick = (id) => {
         nav(`/events/${pickedEvent.status}/${id}`);
     };

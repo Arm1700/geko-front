@@ -11,7 +11,6 @@ export default function Review() {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const reviews = useSelector(state => state.data.reviews);
-    console.log(reviews);
 
     const thumbnailSliderRef = useRef(null);
     const contentSliderRef = useRef(null);
