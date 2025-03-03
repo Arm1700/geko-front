@@ -1,0 +1,31 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main  # Запускать деплой при пуше в main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # GitHub Actions работает на Linux
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 66.94.127.158
+          username: geko
+          key: ${{ secrets.SSH_KEY }}
+          port: 7059
+          script: |
+            cd /home/geko/myproject/frontend/prod/geko-front
+            git pull origin main
+            yarn install --frozen-lockfile
+            yarn build
+            sudo rm -rf /var/www/html/*
+            sudo cp -r dist/* /var/www/html/
+            sudo ln -sfn /home/geko/myproject/backend/prod/prod-geko-back/staticfiles /var/www/html/static
+            sudo ln -sfn /home/geko/myproject/backend/prod/prod-geko-back/media /var/www/html/media
+            sudo systemctl restart nginx
