@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useNavigate, useParams } from 'react-router-dom'
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { TbClockHour9 } from 'react-icons/tb'
@@ -27,6 +27,28 @@ export default function EventsPage() {
     useEffect(() => {
         dispatch(fetchEventById(eventId));
     }, [dispatch, eventId]);
+
+    const slides = useMemo(() => {
+        return pickedEvent.event_galleries?.length > 0
+            ? pickedEvent.event_galleries.map(({ image, id }) => (
+                <SwiperSlide
+                    key={id}
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <img src={getImageUrl(image)} alt="" className="h-full w-full object-cover" />
+                </SwiperSlide>
+            ))
+            : (
+                <img
+                    src={pickedEvent.image}
+                    alt={"image " + t(pickedEvent.description)}
+                    className="h-full w-full object-cover"
+                />
+            );
+    }, [pickedEvent, t]);
 
     if (!pickedEvent) {
         return (
@@ -92,30 +114,11 @@ export default function EventsPage() {
                     <article className={'w-full '}>
                         <Swiper
                             slidesPerView={1}
-                            loop={pickedEvent.event_galleries.length > 1}
+                            loop={pickedEvent.event_galleries?.length > 1}
                             modules={[Pagination, A11y]}
                             speed={500}
                         >
-                            {pickedEvent.event_galleries && pickedEvent.event_galleries.length > 0 ? (
-                                pickedEvent.event_galleries.map(({ image, id }) => (
-                                    <SwiperSlide
-                                        key={id}
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        <img src={getImageUrl(image)} alt="" className="h-full w-full object-cover" />
-                                    </SwiperSlide>
-                                ))
-                            ) : (
-                                <img
-                                    src={pickedEvent.image}
-                                    alt={"image " + t(pickedEvent.description)}
-                                    className="h-full w-full object-cover"
-                                />
-                            )}
-
+                            {slides}
                         </Swiper>
                     </article>
                 </div>

@@ -1,16 +1,9 @@
 import { defineConfig } from 'vite';
 import fs from 'fs/promises';
 import react from '@vitejs/plugin-react';
-import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig(() => ({
-  plugins: [
-    react(),
-    visualizer({
-      filename: './stats.html',
-      open: true,
-    }),
-  ],
+  plugins: [react()],
   esbuild: {
     loader: 'jsx',
     include: /src\/.*\.(js|jsx)$/,

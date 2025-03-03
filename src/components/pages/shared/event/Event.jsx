@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { MdOutlinePlace } from 'react-icons/md';
 import { TbClockHour3 } from 'react-icons/tb';
 import { useNavigate } from "react-router-dom";
@@ -34,6 +34,20 @@ export default function Event({ pickedEvent }) {
     const day = date.getDate(); // День
     const month = date.getMonth() + 1; // Месяц (нумерация начинается с 0)
     const year = date.getFullYear(); // Год
+
+    const slides = useMemo(() => {
+        return pickedEvent.event_galleries && pickedEvent.event_galleries.length > 0
+            ? pickedEvent.event_galleries.map(({ image, id }) => (
+                <SwiperSlide key={id}>
+                    <img alt={"image " + t(pickedEvent.description)} src={getImageUrl(image)}
+                        className="rounded-md w-full" />
+                </SwiperSlide>
+            ))
+            : (
+                <img alt={"image " + t(pickedEvent.description)} src={pickedEvent.image}
+                    className="rounded-md w-full" />
+            );
+    }, [pickedEvent, t]);
 
     return (
         <section
@@ -75,19 +89,8 @@ export default function Event({ pickedEvent }) {
                         pauseOnMouseEnter: true,
                         disableOnInteraction: false,
                     }}
-
                 >
-                    {pickedEvent.event_galleries && pickedEvent.event_galleries.length > 0 ? (
-                        pickedEvent.event_galleries.map(({ image, id }) => (
-                            <SwiperSlide key={id}>
-                                <img alt={"image " + t(pickedEvent.description)} src={getImageUrl(image)}
-                                    className="rounded-md w-full" />
-                            </SwiperSlide>
-                        ))
-                    ) : (
-                        <img alt={"image " + t(pickedEvent.description)} src={pickedEvent.image}
-                            className="rounded-md w-full" />
-                    )}
+                    {slides}
                 </Swiper>
             </div>
         </section>

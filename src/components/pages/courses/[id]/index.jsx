@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useEffect } from 'react'
+import React, { useLayoutEffect, useState, useEffect, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { TbClockHour9 } from 'react-icons/tb'
 import { IoLanguage } from 'react-icons/io5'
@@ -60,6 +60,18 @@ export default function CoursePage() {
 
 
     const shouldLoop = courses.length > slidesToShow;
+
+    const slides = useMemo(() => {
+        return courses.slice(0, 6).map(({ image, id, translation }) => (
+            <SwiperSlide key={id}>
+                <PopularCourse
+                    id={id}
+                    image={image}
+                    title={translation.title}
+                />
+            </SwiperSlide>
+        ));
+    }, [courses]);
 
     return (
         <section className="bgColorArticle md:before:h-[250px] before:h-[0] relative pb-5">
@@ -222,17 +234,7 @@ export default function CoursePage() {
                                     disableOnInteraction: false,
                                 }}
                             >
-                                {courses.slice(0, 6).map(({ image, id, translation }) => (
-                                    <SwiperSlide key={id} style={{
-                                    }}>
-                                        <PopularCourse
-                                            id={id}
-                                            image={image}
-                                            title={translation.title}
-                                            key={id}
-                                        />
-                                    </SwiperSlide>
-                                ))}
+                                {slides}
                             </Swiper>
                         </div>
 
