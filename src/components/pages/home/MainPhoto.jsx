@@ -30,6 +30,7 @@ export default function MainPhoto() {
                 className="md:absolute top-0 left-0 min-w-full md:h-full object-cover pointer-events-none"
             >
                 <source src="/videos/main.webm" type="video/webm" />
+                <source src="/videos/main2.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
         </section>
